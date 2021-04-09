@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS PATIENTS(
 	Age int not null,
 	Phone_Number varchar(10) not null,
 	Priority int(1) not null,
-	Earliest_Arrival_Data date,
+	Earliest_Arrival_Data date not null,
 	Arrival_Date date,
 	CHECK (Age > 0),
 	CHECK (Priority > 0 and Priority < 4)) engine=innodb;
