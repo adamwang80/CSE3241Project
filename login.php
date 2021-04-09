@@ -15,7 +15,6 @@
         if($username == $postUsername && $password == $postPassword){
             $_SESSION['username'] = $username;
             echo "<script>alert('Log in successfully!');</script>";
-            $url = "menu.php";  
             echo "<script language='javascript' type ='text/javascript'>";  
             echo " window.location.href='$url'";  
             echo "</script>";  

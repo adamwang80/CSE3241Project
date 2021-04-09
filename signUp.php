@@ -13,10 +13,10 @@
     $ealiest_date = isset($_POST['earliest_date']) ? $_POST['earliest_date'] : '';
 
     if(isset($_POST['signUp'])){
-        $sql = "INSERT INTO PATIENTS(First_Name, Middle_Name, Last_Name, Age, Phone_Number, Priority, Earliest_Arrival_Data) VALUES ('$fname', '$mname', '$lname', '$age', '$phone_number', '$priority', '$ealiest_date')";
+        $sql = "INSERT INTO PATIENTS(First_Name, Middle_Name, Last_Name, Age, Phone_Number, Priority, Earliest_Arrival_Date) VALUES ('$fname', '$mname', '$lname', '$age', '$phone_number', '$priority', '$ealiest_date')";
         mysqli_query($conn, $sql);
         echo "Successfully insert value in patients table.";
-        $sql = "SELECT Patient_Id FROM PATIENTS WHERE First_Name = '$fname' AND Middle_Name = '$mname' AND Last_Name = '$lname' AND Age = '$age' AND Phone_Number = '$phone_number' AND Priority = '$priority' AND Earliest_Arrival_Data = '$ealiest_date'";
+        $sql = "SELECT Patient_Id FROM PATIENTS WHERE First_Name = '$fname' AND Middle_Name = '$mname' AND Last_Name = '$lname' AND Age = '$age' AND Phone_Number = '$phone_number' AND Priority = '$priority' AND Earliest_Arrival_Date = '$ealiest_date'";
         $query = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($query, MYSQLI_ASSOC);
         $patient_id = $row['Patient_Id'];

@@ -1,7 +1,5 @@
 <?php
-    session_start();
-    $user = $_SESSION['username'];
-    echo "Welcome, ".$user;
+
 ?>
 
 
@@ -9,8 +7,9 @@
 <meta charset="UTF-8">
 <meta name="Author" content="Kangxuan Ye">
 <head>
-    <title>Login</title>
+    <title>Inventory</title>
 </head>
+
 <body>
     <h2> Successfully jumped </h2>
 </body>
