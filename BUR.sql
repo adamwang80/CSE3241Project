@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS BATCHES (
 
 CREATE TABLE IF NOT EXISTS DOSES (
 	Tracking_Number varchar(15) primary key not null,
-	Status ENUM('Unused', 'Used', 'Expired') DEFAULT 'Unused',
+	Status varchar(15) not null DEFAULT 'Unused',
 	Batch_id varchar(15) not null,
 	FOREIGN KEY (Batch_id) REFERENCES BATCHES (Batch_id)) engine=innodb;
 
@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS PATIENTS(
 	Last_Name varchar(30) not null,
 	Age int not null,
 	Phone_Number varchar(10) not null,
-	Priority int(1) not null,
 	Earliest_Arrival_Date date not null,
+	Priority int(1) not null,
 	Arrival_Date date,
 	CHECK (Age > 0),
 	CHECK (Priority > 0 and Priority < 4)) engine=innodb;
