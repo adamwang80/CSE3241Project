@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS BATCHES (
 
 CREATE TABLE IF NOT EXISTS DOSES (
 	Tracking_Number varchar(15) primary key not null,
-	Status ENUM ('Unused', 'Used, Expired') DEFAULT 'Unused',
+	Status varchar(15) not null DEFAULT 'Unused',
 	Batch_id varchar(15) not null,
 	FOREIGN KEY (Batch_id) REFERENCES BATCHES (Batch_id)) engine=innodb;
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS ACCOUNTS(
 CREATE TABLE IF NOT EXISTS SCHEDULE (
 	Patient_Id int primary key not null,
 	Tracking_Number varchar(15) not null,
-	Status ENUM ('Scheduled', 'Dosed') not null DEFAULT 'Scheduled',
+	Status varchar(15) not null DEFAULT 'Scheduled',
 	Arrival_Date date not null,
 	FOREIGN KEY (Patient_Id) REFERENCES PATIENTS(Patient_Id),
 	FOREIGN KEY (Tracking_Number) REFERENCES DOSES (Tracking_Number)) engine=innodb;
