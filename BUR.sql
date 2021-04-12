@@ -10,11 +10,7 @@ CREATE TABLE IF NOT EXISTS BATCHES (
 
 CREATE TABLE IF NOT EXISTS DOSES (
 	Tracking_Number varchar(15) primary key not null,
-<<<<<<< HEAD
-	Status ENUM ('Unused', 'Used', 'Expired') DEFAULT 'Unused',
-=======
-	Status varchar(15) not null DEFAULT 'Unused',
->>>>>>> 4a42f54b4ba4fb4181f87ca86059182e51ae6431
+	Status ENUM('Unused', 'Used', 'Expired') DEFAULT 'Unused',
 	Batch_id varchar(15) not null,
 	FOREIGN KEY (Batch_id) REFERENCES BATCHES (Batch_id)) engine=innodb;
 
