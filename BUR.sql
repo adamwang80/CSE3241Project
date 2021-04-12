@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS PATIENTS(
 	Last_Name varchar(30) not null,
 	Age int not null,
 	Phone_Number varchar(10) not null,
-	Priority int(1) not null,
 	Earliest_Arrival_Date date not null,
+	Priority int(1) not null,
 	Arrival_Date date,
 	CHECK (Age > 0),
 	CHECK (Priority > 0 and Priority < 4)) engine=innodb;
