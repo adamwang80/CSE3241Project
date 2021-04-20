@@ -11,6 +11,7 @@
     $password = $row['Password'];
     echo $username;
     echo $password;
+    $url = "userView.php";
     if(isset($_POST['login'])){
         if($username == $postUsername && $password == $postPassword){
             $_SESSION['username'] = $username;
