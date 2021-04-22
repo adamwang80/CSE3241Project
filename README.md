@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS BATCHES (
 	Quantity_Of_Available int not null,
 	Quantity_Of_Dosed int not null,
 	Quantity_Of_Expired int not null,
-	CHECK (Quantity_Of_Dose > 0 AND Quantity_Of_Available > 0 AND Quantity_Of_Dosed + Quantity_Of_Expired + Quantity_of_Available = Quantity_Of_Doses)) engine=innodb;
+	CHECK (Quantity_Of_Doses > 0 AND Quantity_Of_Available > 0 AND Quantity_Of_Dosed + Quantity_Of_Expired + Quantity_of_Available = Quantity_Of_Doses)) engine=innodb;
 
 CREATE TABLE IF NOT EXISTS DOSES (
 	Tracking_Number varchar(15) primary key not null,
@@ -57,7 +57,7 @@ TRIGGER:
 
 delimiter $
 create trigger add_in_schedule after insert on SCHEDULE
-for each row 
+for each row
 begin
 update PATIENTS set Arrival_Date = new.Arrival_Date where Patient_Id = New.Patient_Id;
 update DOSES set Status = 'Scheduled' Where Tracking_Number = New.Tracking_Number;
@@ -154,12 +154,12 @@ end$
 
 
 event:
-create event clean_schedule 
+create event clean_schedule
 ON SCHEDULE EVERY 1 DAY
 STARTS '2021-04-19 17:43:00' ON COMPLETION PRESERVE ENABLE
 DO CALL daily_clean_schedule;
 
-create event add_schedule 
+create event add_schedule
 ON SCHEDULE EVERY 1 DAY
 STARTS '2021-04-19 18:57:00' ON COMPLETION PRESERVE ENABLE
 DO CALL daily_add_schedule;
