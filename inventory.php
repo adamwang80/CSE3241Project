@@ -32,5 +32,12 @@
 
 <body>
     <h2> Successfully jumped </h2>
+    <table>
+        <tr>
+            <td><form method="POST" action="batch.php">
+              <input type="submit" value="Add Batch">
+            </form></td>
+        </tr>
+    </table>
 </body>
 </html>
