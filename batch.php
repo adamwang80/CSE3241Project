@@ -49,7 +49,7 @@
                 <td><input type="submit" name="batch" value="Create Batch"></td>
             </tr>
             <tr>
-                  <td><a href="admin.php">Return</a></td>
+                  <td><a href="inventory.php">Return to Inventory</a></td>
             </tr>
         </table>
     </form>

@@ -30,5 +30,13 @@
 
 <body>
     <h2> Successfully jumped </h2>
+    <table>
+        <tr>
+            <td><a href="admin.php">Return</a></td>
+            <td><a href="inventory.php">Inventory</a></td>
+            <td><a href="people_dosed.php">People Dosed</a></td>
+            <td><a href="waitlist.php">Waitlist</a></td>
+        </tr>
+    </table>
 </body>
 </html>
