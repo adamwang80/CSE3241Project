@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS BATCHES (
 	CHECK (Quantity_Of_Doses > 0 AND Quantity_Of_Available > 0 AND Quantity_Of_Dosed + Quantity_Of_Expired + Quantity_of_Available = Quantity_Of_Doses)) engine=innodb;
 
 CREATE TABLE IF NOT EXISTS DOSES (
-	Tracking_Number varchar(15) primary key not null,
+	Tracking_Number varchar(20) primary key not null,
 	Status varchar(15) not null DEFAULT 'Unused',
 	Batch_id varchar(15) not null,
 	FOREIGN KEY (Batch_id) REFERENCES BATCHES (Batch_id)) engine=innodb;
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS ACCOUNTS(
 
 CREATE TABLE IF NOT EXISTS SCHEDULE (
 	Patient_Id int primary key not null,
-	Tracking_Number varchar(15) not null,
+	Tracking_Number varchar(20) not null,
 	Status varchar(15) not null DEFAULT 'Scheduled',
 	Arrival_Date date not null,
 	FOREIGN KEY (Patient_Id) REFERENCES PATIENTS(Patient_Id),
@@ -76,10 +76,23 @@ end if;
 end;
 $
 
+delimiter $
+create trigger create_dose after insert on BATCHES
+for each row
+begin
+declare x int;
+set x = 0;
+while x < new.Quantity_Of_Doses do
+insert into doses (Tracking_Number, Batch_id) values (UUID_SHORT(), new.Batch_id);
+set x=x+1;
+end while;
+end;
+$
+
 procedure:
 
 delimiter $
-create procedure return_dose(in id int, in number varchar(15))
+create procedure return_dose(in id int, in number varchar(20))
 begin
 update PATIENTS set Arrival_Date = NULL where Patient_Id = id;
 update DOSES set Status = 'Unused' Where Tracking_Number = number;
@@ -89,7 +102,7 @@ end;
 $
 
 delimiter $
-create procedure destroy_dose(in id int, in number varchar(15))
+create procedure destroy_dose(in id int, in number varchar(20))
 begin
 update PATIENTS set Arrival_Date = NULL where Patient_Id = id;
 update DOSES set Status = 'Expired' where Tracking_Number = number;
@@ -103,7 +116,7 @@ delimiter $
 create procedure daily_add_schedule()
 begin
 declare id int;
-declare number varchar(15);
+declare number varchar(20);
 declare has_data int default 1;
 
 declare result_id cursor for SELECT Patient_Id FROM PATIENTS WHERE Arrival_Date IS NULL AND Earliest_Arrival_Date <= CURDATE() ORDER BY Priority DESC, Age DESC;
@@ -125,12 +138,11 @@ close result_id;
 close result_number;
 end$
 
-
 delimiter $
 create procedure daily_clean_schedule()
 begin
 declare id int;
-declare number varchar(15);
+declare number varchar(20);
 declare has_data int default 1;
 declare result cursor for SELECT Patient_Id, Tracking_Number FROM SCHEDULE WHERE Status = 'Scheduled' AND Arrival_Date < CURDATE();
 declare exit handler for not found set has_data = 0;

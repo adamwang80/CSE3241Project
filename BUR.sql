@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS BATCHES (
-	Batch_id varchar(15) primary key not null,
+	Batch_id varchar(15) primary key not null unique,
 	Quantity_Of_Doses int not null,
 	Manufacturer varchar(15) not null,
 	Expire_Date date not null,
 	Quantity_Of_Available int not null,
-	Quantity_Of_Dosed int not null,
-	Quantity_Of_Expired int not null,
-	CHECK (Quantity_Of_Dose > 0 AND Quantity_Of_Available > 0 AND Quantity_Of_Dosed + Quantity_Of_Expired + Quantity_of_Available = Quantity_Of_Doses)) engine=innodb;
+	Quantity_Of_Dosed int not null DEFAULT 0,
+	Quantity_Of_Expired int not null DEFAULT 0,
+	CHECK (Quantity_Of_Doses > 0 AND Quantity_Of_Available > 0 AND Quantity_Of_Dosed + Quantity_Of_Expired + Quantity_of_Available = Quantity_Of_Doses)) engine=innodb;
 
 CREATE TABLE IF NOT EXISTS DOSES (
 	Tracking_Number varchar(15) primary key not null,
