@@ -9,6 +9,10 @@
     if(isset($_POST['batch'])){
         $sql = "INSERT INTO BATCHES (Batch_id, Quantity_Of_Doses, Manufacturer, Expire_Date, Quantity_Of_Available) VALUES ('$batch_id', '$quantity', '$manufacturer', '$expire_date', '$quantity')";
         mysqli_query($conn, $sql);
+        $result = mysqli_query($conn, "CALL daily_add_schedule") or die("Query Failed: " . mysqli_error());
+        while( $row = mysqli_fetch_array($result) ) {
+          print_r( $row );
+        }
         echo "Successfully insert value in batches table.";
     } else {
         echo "Failed.";
